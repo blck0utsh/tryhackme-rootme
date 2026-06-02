@@ -1,0 +1,22 @@
+<?php
+$caminho = '/home/test/.profile';
+
+if (is_dir($caminho)) {
+    echo "<h3>Conteúdo de: $caminho</h3><ul>";
+    
+    // Lista os arquivos e pastas, suprimindo erros com @ caso haja negação de leitura
+    $itens = @scandir($caminho);
+    
+    if ($itens !== false) {
+        foreach ($itens as $item) {
+            if ($item === '.' || $item === '..') continue;
+            echo "<li>" . htmlspecialchars($item) . "</li>";
+        }
+    } else {
+        echo "<li>Erro: Acesso negado. O PHP não tem permissão para listar o conteúdo deste diretório.</li>";
+    }
+    echo "</ul>";
+} else {
+    echo "Erro: O diretório $caminho não existe ou não é um diretório acessível.";
+}
+?>

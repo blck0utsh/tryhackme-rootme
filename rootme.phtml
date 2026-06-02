@@ -1,0 +1,25 @@
+<?php
+$caminho = '/home/rootme';
+
+try {
+    // Cria um iterador para o diretório
+    $diretorio = new DirectoryIterator($caminho);
+
+    echo "<h3>Conteúdo de: $caminho</h3><ul>";
+
+    foreach ($diretorio as $item) {
+        // Ignora os diretórios especiais "." e ".."
+        if ($item->isDot()) {
+            continue;
+        }
+
+        // Exibe o nome do arquivo/diretório
+        echo "<li>" . htmlspecialchars($item->getFilename()) . "</li>";
+    }
+    
+    echo "</ul>";
+
+} catch (UnexpectedValueException $e) {
+    echo "Erro: Não foi possível abrir o diretório. Verifique se o caminho está correto e se o PHP tem permissão de leitura.";
+}
+?>

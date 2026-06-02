@@ -1,0 +1,21 @@
+<?php
+$caminho = '/home/ubuntu';
+
+if (is_dir($caminho)) {
+    echo "<h3>Conteúdo de: $caminho</h3><ul>";
+    
+    // Abre o diretório
+    if ($handle = opendir($caminho)) {
+        while (false !== ($item = readdir($handle))) {
+            if ($item != "." && $item != "..") {
+                // Exibe o nome do item
+                echo "<li>" . htmlspecialchars($item) . "</li>";
+            }
+        }
+        closedir($handle);
+    }
+    echo "</ul>";
+} else {
+    echo "Erro: O diretório não existe ou não tem permissão para o ler.";
+}
+?>

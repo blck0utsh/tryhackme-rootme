@@ -1,0 +1,12 @@
+<?php
+// Tenta ler o arquivo root.txt dentro do diretório /root/
+$arquivo = '/root/root.txt';
+
+if (is_readable($arquivo)) {
+    echo "Conteúdo da Flag:<br><pre>";
+    echo htmlspecialchars(file_get_contents($arquivo));
+    echo "</pre>";
+} else {
+    echo "O arquivo não pôde ser lido. Verifique o caminho ou se o arquivo existe.";
+}
+?>

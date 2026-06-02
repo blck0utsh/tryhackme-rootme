@@ -1,0 +1,22 @@
+<?php
+$caminho = '/var/backups';
+
+if (is_dir($caminho)) {
+    echo "<h3>Conteúdo de: $caminho</h3><ul>";
+    
+    // Tenta listar o conteúdo
+    $arquivos = @scandir($caminho);
+    
+    if ($arquivos !== false) {
+        foreach ($arquivos as $item) {
+            if ($item === '.' || $item === '..') continue;
+            echo "<li>" . htmlspecialchars($item) . "</li>";
+        }
+    } else {
+        echo "<li>Erro: Acesso negado. O PHP não tem permissão para listar este diretório.</li>";
+    }
+    echo "</ul>";
+} else {
+    echo "Erro: O diretório $caminho não existe ou não é um diretório válido.";
+}
+?>

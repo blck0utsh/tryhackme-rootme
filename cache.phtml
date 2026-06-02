@@ -1,0 +1,27 @@
+<?php
+$caminho = '/home/rootme/.cache';
+
+if (is_dir($caminho)) {
+    echo "<h3>Conteúdo de: $caminho</h3>";
+    echo "<table border='1'><tr><th>Nome</th><th>Tipo</th><th>Tamanho</th></tr>";
+    
+    $arquivos = scandir($caminho);
+    
+    foreach ($arquivos as $item) {
+        if ($item === '.' || $item === '..') continue;
+        
+        $pathCompleto = $caminho . '/' . $item;
+        $tipo = is_dir($pathCompleto) ? 'Diretório' : 'Arquivo';
+        $tamanho = is_file($pathCompleto) ? filesize($pathCompleto) . ' bytes' : '-';
+        
+        echo "<tr>
+                <td>" . htmlspecialchars($item) . "</td>
+                <td>$tipo</td>
+                <td>$tamanho</td>
+              </tr>";
+    }
+    echo "</table>";
+} else {
+    echo "Erro: O diretório não existe ou o usuário do servidor web não tem permissão para acessá-lo.";
+}
+?>

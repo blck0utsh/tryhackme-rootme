@@ -1,0 +1,20 @@
+<?php
+$caminho = '/var/www/html/panel';
+
+if (is_dir($caminho)) {
+    echo "<h3>Conteúdo do diretório: $caminho</h3>";
+    
+    $itens = scandir($caminho);
+    echo "<ul>";
+    foreach ($itens as $item) {
+        if ($item === '.' || $item === '..') continue;
+        
+        $caminhoCompleto = $caminho . '/' . $item;
+        $tipo = is_dir($caminhoCompleto) ? "Pasta" : "Arquivo";
+        echo "<li>[$tipo] " . htmlspecialchars($item) . "</li>";
+    }
+    echo "</ul>";
+} else {
+    echo "<p style='color:red;'>Erro: O diretório <strong>$caminho</strong> não existe ou não pode ser lido.</p>";
+}
+?>

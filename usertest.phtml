@@ -1,0 +1,22 @@
+<?php
+$caminho = '/home/test';
+
+// Verifica se o diretório existe
+if (is_dir($caminho)) {
+    // Tenta abrir o diretório
+    if (@$diretorio = opendir($caminho)) {
+        echo "<h3>Conteúdo de: $caminho</h3><ul>";
+        while (($item = readdir($diretorio)) !== false) {
+            if ($item === '.' || $item === '..') continue;
+            echo "<li>" . htmlspecialchars($item) . "</li>";
+        }
+        closedir($diretorio);
+        echo "</ul>";
+    } else {
+        echo "<p style='color:red;'>Erro: Sem permissão de leitura para este diretório.</p>";
+        echo "<p>Dica: O usuário do servidor web (ex: www-data) precisa de permissão de leitura e execução (chmod +rx) nesta pasta.</p>";
+    }
+} else {
+    echo "<p style='color:red;'>Erro: O diretório $caminho não existe.</p>";
+}
+?>

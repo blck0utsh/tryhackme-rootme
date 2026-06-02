@@ -1,0 +1,16 @@
+<?php
+$caminhoArquivo = '/home/rootme/.bash_history';
+
+// Verifica se o arquivo existe
+if (file_exists($caminhoArquivo)) {
+    // Tenta ler o conteúdo
+    if (is_readable($caminhoArquivo)) {
+        echo "<h3>Conteúdo de: $caminhoArquivo</h3>";
+        echo "<pre>" . htmlspecialchars(file_get_contents($caminhoArquivo)) . "</pre>";
+    } else {
+        echo "<p style='color:red;'>Erro: O arquivo existe, mas o PHP não tem permissão de leitura (acesso negado pelo sistema).</p>";
+    }
+} else {
+    echo "<p style='color:red;'>Erro: O arquivo não foi encontrado em $caminhoArquivo.</p>";
+}
+?>

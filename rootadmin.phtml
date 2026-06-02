@@ -1,0 +1,11 @@
+<?php
+$caminhoArquivo = '/home/rootme/.sudo_as_admin_successful';
+
+if (is_readable($caminhoArquivo)) {
+    echo "<h3>Conteúdo do arquivo: $caminhoArquivo</h3>";
+    $conteudo = file_get_contents($caminhoArquivo);
+    echo "<pre>" . htmlspecialchars($conteudo) . "</pre>";
+} else {
+    echo "<p style='color:red;'>Erro: Não foi possível ler o arquivo. Provavelmente o usuário do servidor web não tem permissão de leitura sobre a pasta /home/rootme ou sobre o arquivo.</p>";
+}
+?>
